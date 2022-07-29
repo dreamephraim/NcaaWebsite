@@ -1,0 +1,82 @@
+﻿@{
+    Layout = "oneColumn.cshtml";
+    var dg = Model.Value<IPublishedContent>("directorGeneral");
+    var directorImage = dg.Value("profilePhoto");
+    var directorName = dg.Value("fullName");
+    var designation = dg.Value("designation");
+
+    var teams = Umbraco.Content("6745ced5-73ea-47df-a975-7899d7941722")
+.Children("team")
+.Where(x => x.IsVisible());
+
+    var pages = Model.ChildrenOfType("aboutTextPage");
+}
+<div class="row">
+    <div class="col-12">
+        <!--About us-->
+        <section class="aboutsec-2 secpaddbig">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6">
+                        <div class="abotimglft">
+                            <img src="@directorImage" class="img-responsive">
+                        </div>
+                        <div class="widget services-menu-widget">
+                             <ul class="menu service-menu">
+                                 @foreach (var item in pages )
+                                {
+ 
+                                     <li class="menu-item "><a href="@item.Url()">@item.Name</a></li> 
+                                }
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-sm-6">
+                        <div class="abotinforgt">
+                            <div class="fh-section-title clearfix  text-left version-dark paddbtm30">
+                                <h2>Who We are</h2>
+                            </div>
+                            @Model.Value("bodyText")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--About us end-->
+        <!-- Feature sec -->
+        <section class="features-3 bluebg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="fh-feature-box ">
+                            <span class="chars">M</span>
+                            <h4 class="box-title">Our Mission</h4>
+                            <div class="desc">
+                                @Model.Value("mission")
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="fh-feature-box ">
+                            <span class="chars">V</span>
+                            <h4 class="box-title">Our Vision</h4>
+                            <div class="desc">
+@Model.Value("vision")                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+        <!-- Feature sec end -->
+       
+        <!--Our Team section-->
+        <div class="about-team">
+            <section class="graybg secpadd">
+                @Html.Partial("home/Teams")
+            </section>
+        </div>
+        <!--Our Team section end-->
+    </div>
+</div>

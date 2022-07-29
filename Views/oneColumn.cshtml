@@ -1,0 +1,27 @@
+﻿@{
+    Layout = "roothead.cshtml";
+}
+ 
+ @await Umbraco.RenderMacroAsync("Breadcrumbs")
+
+
+
+<div id="content " class="container mb-5"  >
+    @RenderBody()
+</div>
+@section styles{
+    <style>
+    #content {
+    margin-top: 32px
+    }
+    .page-header{
+    margin-bottom:2rem;
+    }
+    .header-title{
+    padding: 40px 0 20px 0;
+    }
+        .page-title{
+        color: #fff;
+        }
+    </style>
+}

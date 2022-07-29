@@ -1,0 +1,64 @@
+﻿@{
+	Layout = "oneColumn.cshtml";
+    var selection = Umbraco.Content(Guid.Parse("6745ced5-73ea-47df-a975-7899d7941722"))
+        .ChildrenForAllCultures.DescendantsOrSelfOfType("team")
+        .Where(x => x.IsVisible());
+}
+
+<div class="row">
+
+        <div id="primary" class="content-area all-project">
+            <main id="main" class="site-main fh-team">
+                @Model.Value("bodyText")
+                @if (selection.Any())
+                {
+                <div class="list-project team-list row" >
+
+                    @foreach (var item in selection.OrderBy(x=>x.SortOrder))
+                    {
+                        var fullName = item.Value("fullName");
+                        var twitter = item.Value("twitter");
+                        var facebook = item.Value("facebook");
+                        var designation = item.Value("designation");
+                        // var summary = item.Value("quotes");
+                        var image = item.GetCropUrl("profilePhoto", "homeThumbnail");
+                        var img = item.Value("profilePhoto");
+                        // var pDate = Model.CreateDate;
+                    <div class="col-md-3">
+                       
+
+                        <div class="team-member ">
+                            <div class="team-header">
+                                <img src="@img" class="@fullName image" alt="" />
+                                <ul class="team-social">
+                                    <li>
+                                        <a href="https://twitter.com/@facebook" target="_blank">
+                                            <i class="fa fa-facebook"></i>
+                                        </a>
+                                    </li>
+                                    <li><a href="https://twitter.com/@twitter" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="team-info">
+                                <h4 class="name">
+                                    <a href="@item.Url()">@fullName</a>
+                                </h4><span class="job">@designation</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    }
+
+
+
+
+
+                </div>
+                }
+                
+
+
+            </main> 
+        </div> 
+
+    </div>

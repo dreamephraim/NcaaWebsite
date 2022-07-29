@@ -1,0 +1,66 @@
+﻿@{
+	var selection = Umbraco.Content("fa760daf-35eb-4239-943e-6817d7d7c1f7");
+	var children=selection
+		.Children()
+		.Where(x => x.IsVisible())
+		.OrderBy(x => x.ItemType)
+		.Take(10);
+}
+
+<section id="ft-service" class="ft-service-section">
+		<div class="container">
+			<div class="ft-service-content">
+				<div class="row">
+					<div class="col-lg-3 wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1500ms">
+						<div class="ft-service-text-area">
+							<div class="ft-section-title headline pera-content">
+								<span class="sub-title">What We  Do</span>
+								<h2>Don't know where to Start? Begin Here!
+								</h2>
+							</div>
+							<div class="ft-btn">
+								<a class="d-flex justify-content-center align-items-center" href="/services">More Service</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-9">
+						<div class="ft-service-slider-area">
+							<div class="ft-service-slider-wrapper">
+								@{
+									var count = 0;
+								}
+								@foreach (var item in children)
+								{
+									count += 1;
+									var title = item.Value("serviceName");
+									var summary = item.Value("serviceSummary");
+									var serviceImage = item.GetCropUrl("serviceImage", "homeThumbnail");
+
+									<div class="ft-item-innerbox wow fadeInLeft" data-wow-delay="200ms" data-wow-duration="1500ms">
+										<div class="ft-service-slider-item">
+											<div class="ft-service-inner-img">
+												<img src="@serviceImage" alt="@title">
+											</div>
+											<div class="ft-service-inner-text headline pera-content position-relative">
+												<h3><a href="@item.Url()">@title</a></h3>
+												<p>@summary </p>
+												<a class="service-more" href="@item.Url()">Get Started <span>+</span></a>
+												<div class="ft-service-serial position-absolute">
+													@count
+												</div>
+											</div>
+										</div>
+									</div>
+								}
+
+								 
+								 
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+

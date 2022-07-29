@@ -1,0 +1,46 @@
+﻿ @{ 
+	 var root = Umbraco.Content(1055);// Model.AncestorOrSelf(1);
+	 var children = root.Children
+		 .Where(x => x.Value<bool>("umbracoNaviHide"))
+		 .OrderBy(x => x.SortOrder);
+ }
+<div class="ft-header-main-menu d-flex justify-content-end align-items-center">
+							<nav class="ft-main-navigation clearfix ul-li">
+								<ul id="ft-main-nav" class="nav navbar-nav clearfix">
+									<li >
+										<a href="/">Home</a>
+										 
+									</li>
+									@foreach (var item in children)
+									{
+										var hasChildren = item.Children != null 
+										                  && item.Children.Any(x => x.IsVisible() 
+										                                 || x.Value<bool>("umbracoNaviHide"));
+
+										if (hasChildren)
+										{
+											<li class="dropdown">
+												<a href="%21.html#">@item.Name</a>
+												<ul class="dropdown-menu clearfix">
+													@foreach (var subpage in item.Children()
+                                                              .Where(x => x.Value<bool>("umbracoNaviHide")))
+                                                             {
+                                                                 <li><a href="@subpage.Url()">@subpage.Name</a></li>
+                                                               }
+												</ul>
+											</li>
+										}
+										else
+										{
+											 <li><a href="@item.Url()">@item.Name</a></li>
+										}
+									}
+									
+									 
+								</ul>
+							</nav>
+							<div class="ft-header-cta-btn">
+								<a class="d-flex justify-content-center align-items-center" href="contact.html">Report Incident</a>
+							</div>
+						</div>
+					

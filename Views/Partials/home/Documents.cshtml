@@ -1,0 +1,105 @@
+﻿@using Umbraco.Cms.Web.Common.Mvc
+@{
+	var container = Umbraco.Content("bb361156-6c93-4aed-9895-d93db969ed6e");
+	var selection = container.ChildrenOfType("documentContainer");
+
+	var covid19 = Umbraco.Content("6ab061a8-2e21-4b6b-919d-c2b07a07de69");
+	var regulations = container
+		.DescendantsOrSelfOfType("regulation").OrderByDescending((x => x.CreateDate));
+	var acs = container
+		.DescendantsOrSelfOfType("advisoryCircular").OrderByDescending((x => x.CreateDate));
+	var htmlStringUtilities = new HtmlStringUtilities();
+}
+
+<section id="ft-testimonial" class="ft-testimonial-section position-relative">
+		<span class="ft-testimonial-map text-center position-absolute"><img src="/images/shape/map.png" alt=""></span>
+		<div class="container" style="margin-top: -110px">
+			<div class="ft-section-title headline pera-content text-center">
+				<span class="sub-title">Documents</span>
+				<h2>Advisory Circulars, Regulations and Covid-19 Information
+				</h2>
+			</div>
+			<div class="ft-testimonial-slider-wrapper">
+				 <div class="row">
+					 <div class="col-lg-4">
+						 <div class="ft-about-feature-text headline pera-content">
+							<div class="ft-section-title headline pera-content">
+                            						<span class="sub-title">Covid-19 Advisory</span></div>
+							 <ul class="list">
+								 @foreach (var item in covid19.Children.OrderByDescending(x => x.CreateDate).Take(10))
+								 {
+ 									 var isCurrent = item.Value<bool>("isCurrent");
+									 var attachment = item.Value<IPublishedContent>("file");
+									 if (!isCurrent)
+									 {
+										 return;
+									 }
+									 var title = item.Value<string>("documentTitle");
+									 var no = item.Value("documentNo");
+									 <li> <a href="@item.Url()" title="@title" >@htmlStringUtilities.Truncate(title.ToUpper(), 60, true, false)</a></li>
+								 }
+							 </ul>
+<div class="ft-thx-btn text-center wow flipInX" data-wow-delay="200ms" data-wow-duration="1500ms" >
+								<a class="d-flex justify-content-center align-items-center" href="/documents/">Explore More</a>
+							</div>
+						 </div>
+						
+					 </div>
+				 
+				<div class="col-lg-4">
+					<div class="ft-about-feature-text headline pera-content">
+						<div class="ft-section-title headline pera-content">
+						<span class="sub-title">Regulations</span></div>
+						<ul class="list">
+							@foreach (var item in regulations.Take(13))
+							{
+								var isCurrent = item.Value<bool>("isCurrent");
+								var attachment = item.Value<IPublishedContent>("file");
+								if (!isCurrent)
+								{
+									return;
+								}
+								var title = item.Value<string>("documentTitle");
+								var no = item.Value("documentNo");
+								<li>
+									<a href="@item.Url()" title="@title">@htmlStringUtilities.Truncate(title.ToUpper(), 60, true, false)</a>
+								</li>
+							}
+						</ul>
+<div class="ft-thx-btn text-center wow flipInX" data-wow-delay="200ms" data-wow-duration="1500ms" >
+								<a class="d-flex justify-content-center align-items-center" href="/documents/regulations/">Explore More</a>
+							</div>
+					</div>
+
+				</div>
+                				    <div class="col-lg-4">
+					<div class="ft-about-feature-text headline pera-content">
+						<div class="ft-section-title headline pera-content">
+						<span class="sub-title">Advisory Cerculars</span></div>
+						<ul class="list">
+							@foreach (var item in acs.Take(10))
+							{
+								var isCurrent = item.Value<bool>("isCurrent");
+								var attachment = item.Value<IPublishedContent>("file");
+								if (!isCurrent)
+								{
+									return;
+								}
+								var title = item.Value<string>("documentTitle");
+								var no = item.Value("documentNo");
+								<li>
+									<a href="@item.Url()" title="@title">@htmlStringUtilities.Truncate(title.ToUpper(), 60, true, false)</a>
+								</li>
+							}
+						</ul>
+<div class="ft-thx-btn text-center wow flipInX" data-wow-delay="200ms" data-wow-duration="1500ms" >
+								<a class="d-flex justify-content-center align-items-center" href="/documents/advisory-circulars/">Explore More</a>
+							</div>
+					</div>
+
+				</div>
+                				    
+			</div>
+			</div>
+		</div>
+	</section>

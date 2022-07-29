@@ -1,0 +1,41 @@
+﻿@{
+	var cul = @Model.GetCultureFromDomains().ToLower();
+	var selection = Umbraco.Content("967ec1a8-cc4e-4526-9ebf-cd39beec35b8")
+		.Children(x=>x.IsDocumentType("newsItem"),cul)
+		.OrderByDescending(x => x.CreateDate);
+}
+
+<section class="ft2-services-section-two" style="margin-top: 133px">
+		<div class="auto-container">
+			<div class="services-carousel owl-carousel owl-theme">
+				@foreach (var item in selection)
+				{
+					var showInSlider = item.Value<bool>("showInSlider");
+					if (!showInSlider)
+					{
+						continue;
+					}
+					var title = item.Value("newsTitle");
+					var summary = item.Value("newsTitle");
+					var contentLink = item.Value<IPublishedContent>("newsLink");
+					var image = item.GetCropUrl("newsImage", "fullWidth");
+					var link = contentLink != null ? contentLink.Url() : item.Url();
+					<div class="ft2-service-block-two">
+						<div class="inner-box">
+							<div class="gradient-layer"></div>
+							<div class="image">
+								<a href="@link">
+								<img src="@image" alt="@title"/></a>
+								<div class="lower-content">
+									<div class="title">@title</div>
+									<h4><a href="@link">@summary</a></h4>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				}
+			</div>
+		</div>
+	</section>
+	

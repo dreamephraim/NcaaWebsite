@@ -1,0 +1,112 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Umbraco.Cms" Version="10.0.1" />
+  </ItemGroup>
+
+  <!-- Force Windows to use ICU. Otherwise Windows 10 2019H1+ will do it, but older Windows 10 and most, if not all, Windows Server editions will run NLS -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ICU.ICU4C.Runtime" Version="68.2.0.9" />
+    <RuntimeHostConfigurationOption Include="System.Globalization.AppLocalIcu" Value="68.2.0.9" Condition="$(RuntimeIdentifier.StartsWith('linux')) or $(RuntimeIdentifier.StartsWith('win')) or ('$(RuntimeIdentifier)' == '' and !$([MSBuild]::IsOSPlatform('osx')))" />
+  </ItemGroup>
+
+
+  <PropertyGroup>
+    <CopyRazorGenerateFilesToPublishDirectory>true</CopyRazorGenerateFilesToPublishDirectory>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\AboutNCAA.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\AboutTextPage.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\ComplaintForm.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Contact.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Covid19.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Covid19TextPage.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Directorate.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Directorates.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\DirectorateTextPage.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\DocumentContainer - Copy.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\DocumentContainer.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Documentts.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\ErrorPage.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Event.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\EventConcept.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\EventDocuments.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\EventForm.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\EventHead.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\EventInnerPage.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\EventPage.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\eventPresentations.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\EventProgramme.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Events.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\EventSpeaker.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\EventSpeakers.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\EventSurvey.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Galleries.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Home.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\ImageGallery.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\IncidentReport.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\KeyOfficial.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\MacroPartials\Breadcrumbs.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\MacroPartials\EventHeader.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\MacroPartials\ezSearch.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\MacroPartials\Menu.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\MacroPartials\MetaTags.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\MacroPartials\MobileMenu.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\News.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\NewsItem.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\NonPunitiveReport.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Offices.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\oneColumn.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\PageNotFound.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Partials\Covid19.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Partials\Document.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Partials\EventPages.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Partials\FeaturedNews.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Partials\Footer.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Partials\Formulate\RenderForm.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Partials\Formulate\Responsive.Bootstrap.Angular.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Partials\Formulate\Responsive.Plain JavaScript.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Partials\Grid\Bootstrap3-Fluid.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Partials\Grid\Bootstrap3.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Partials\Grid\Editors\Base.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Partials\Grid\Editors\Embed.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Partials\Grid\Editors\Macro.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Partials\Grid\Editors\Media.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Partials\Grid\Editors\Rte.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Partials\Grid\Editors\Textstring.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Partials\Header.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Partials\homeTeams.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Partials\Pager.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Partials\RegionalOffice.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Partials\Service.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Partials\Slider.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\PressRelease.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\PressReleases.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\RegionalOffice.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\regulation.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\regulations.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\rightbar.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\roothead.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Search.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Service.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Services.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Ssp.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Team.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Teams.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Unit.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\_ViewImports.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Web.config" />
+  </ItemGroup>
+
+  <!-- Keep this as false if ModelsBuilder mode is InMemoryAuto -->
+  <PropertyGroup>
+    <RazorCompileOnBuild>false</RazorCompileOnBuild>
+    <RazorCompileOnPublish>false</RazorCompileOnPublish>
+  </PropertyGroup>
+</Project>

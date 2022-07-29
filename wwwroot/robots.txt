@@ -1,0 +1,19 @@
+# robots.txt for Umbraco
+
+User-agent: *
+Sitemap: http://ncaa.gov.ng/sitemap.xml
+Allow: /
+Allow: /sitemap.htm
+Disallow: /aspnet_client/
+Disallow: /bin/
+Disallow: /config/
+Disallow: /css/
+Disallow: /data/
+Disallow: /install/
+Disallow: /masterpages/
+Disallow: /python/
+Disallow: /scripts/
+Disallow: /umbraco/
+Disallow: /umbraco_client/
+Disallow: /usercontrols/
+Disallow: /xslt/

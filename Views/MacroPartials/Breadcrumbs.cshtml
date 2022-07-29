@@ -1,0 +1,57 @@
+﻿@inherits Umbraco.Cms.Web.Common.Macros.PartialViewMacroPage
+@{
+    var selection = Model.Content.AncestorsOrSelf();
+    var bannerImage = "/images/bg/page-header-bg.jpg";
+    foreach (var item in selection)
+    {
+        if (!item.HasProperty("pageBanner")) {continue;}
+        var bImage = item.GetCropUrl("pageBanner", "pageBanner");
+        if (string.IsNullOrWhiteSpace(bImage))
+        {
+            continue;
+        }
+        bannerImage = bImage??"/images/bg/page-header-bg.jpg";
+        break;
+    }
+}
+
+
+
+@if (selection.Any())
+{
+    <div class="page-header title-area" style="margin-top: 124px; padding: 20px 0; background: url(@bannerImage) center center no-repeat fixed;">
+        <div class="header-title">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-12">
+                        <h1 class="page-title">@Model.Content.Name</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="breadcrumb-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-sm-12 col-12 site-breadcrumb">
+                        <div class="ft-breadcrumb-content headline position-relative">
+                        <div class="ft-breadcrumb-list ul-li">
+                            <ul>
+                                @foreach (var item in selection.Where(x => x.Id != Model.Content.Id).OrderBy(x => x.Level))
+                                {
+                                    <li> <a href="@item.Url()">@item.Name</a>
+                                    </li> 
+                                }
+                                <li>@Model.Content.Name</li>
+                            </ul>
+                        </div>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+}
+
