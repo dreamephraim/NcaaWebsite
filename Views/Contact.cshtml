@@ -1,0 +1,184 @@
+﻿@{
+    Layout = "roothead.cshtml";
+    var regionalOffices = Umbraco.Content(Guid.Parse("7ce688f8-0678-4ffd-bd17-368c2ed306e6"))
+        .Children("regionalOffice")
+        .Where(x => x.IsVisible());
+}
+@await Umbraco.RenderMacroAsync("Breadcrumbs")
+<section class="contactpagesec secpadd ">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="fh-section-title clearfix f25 text-left version-dark paddbtm40">
+                    <h3>Contact Details</h3>
+                </div>
+                <p class="margbtm30">
+                    If you have any questions about what we offer for consumers or for business
+                    , you can always email us or call us via the below details.
+                </p>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="fh-contact-box type-address ">
+                            <i class="flaticon-pin"></i>
+                            <h4 class="box-title">Corporate Headquarters</h4>
+                            <div class="desc">
+                                <p>
+                                    @Model.Value("abujaAddress", fallback: Fallback.ToAncestors)
+
+                                </p>
+                            </div>
+                        </div>
+                        <div class="fh-contact-box type-email ">
+                            <i class="flaticon-business"></i>
+                            <h4 class="box-title">Mail Us at</h4>
+                            <div class="desc">
+                                <p>
+                                    @Model.Value("abujaEmail", fallback: Fallback.ToAncestors)
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="fh-contact-box type-phone ">
+                            <i class="flaticon-phone-call "></i>
+                            <h4 class="box-title">Call us on</h4>
+                            <div class="desc">
+                                @Model.Value("phoneNumber", fallback: Fallback.ToAncestors)
+                            </div>
+                        </div>
+                        <div class="fh-contact-box type-social ">
+                            <i class="flaticon-share"></i>
+                            <h4 class="box-title">We are social</h4>
+                            <ul class="clearfix social">
+                                <li class="facebook">
+                                    <a href="  @Model.Value("facebook", fallback: Fallback.ToAncestors)" target="_blank">
+                                        <i class="bx bxl-facebook"></i>
+                                    </a>
+                                </li>
+                                <li class="twitter">
+                                    <a href="  @Model.Value("twitter", fallback: Fallback.ToAncestors)" target="_blank">
+                                        <i class="bx bxl-twitter"></i>
+                                    </a>
+                                </li>
+                                <li class="googleplus">
+                                    <a href="  @Model.Value("googlePlus", fallback: Fallback.ToAncestors)" target="_blank">
+                                        <i class="bx bxl-google-plus"></i>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="opening-hours vc_opening-hours">
+                    <h3>Working Hours</h3>
+                    <ul class="list">
+                        <li>Monday <span class="hour">800hrs – 1600hrs</span></li>
+                        <li>Tuesday<span class="hour">800hrs – 1600hrs</span></li>
+                        <li>Wednesday <span class="hour">800hrs – 1600hrs</span></li>
+                        <li>Thursday <span class="hour">800hrs – 1600hrs</span></li>
+                        <li>Friday <span class="hour">800hrs – 1600hrs</span></li>
+                        <li>Sat &amp; Sunday <span class="hour main-color">Closed</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@* @Html.Partial("RegionalOffice") *@
+@* *@
+
+<section class="contactpagform graybg secpadd" ng-app="app">
+    <div class="container" ng-controller="contactController">
+        <div class="fh-section-title clearfix f25 text-center version-dark paddbtm40">
+            <h3>Leave Your Message</h3>
+        </div>
+        <p class="paddbtm40 text-center">
+            If you have any questions about the services we provide simply use the form below. We try and respond to all
+            <br>queries and comments within 24 hours.
+        </p>
+        <form name="contactForm" id="contactForm" novalidate="novalidate">
+            <p>
+                <div ng-if="showError" class="alert alert-danger  alert-dismissible fade show" role="alert">
+                    {{submissionMessage}}
+
+                </div>
+                <div ng-if="showSuccess" class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{submissionMessage}}
+                </div>
+            </p>
+            <div class="fh-form fh-form-3">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-10">
+                        <p class="field">
+                            <input class="form-control"  name="subject" ng-model="model.subject" max="250" required="" placeholder="Title/Subject*" type="text">
+                        </p>
+                        <p class="field">
+                            <input class="form-control"  name="name" ng-model="model.name" max="100" required="" placeholder="Your Name*" type="text">
+                        </p>
+                        <p class="field">
+                            <input class="form-control"  name="email" ng-model="model.email" max="250" required="" placeholder="Email Address*" type="email">
+                        </p>
+                        <p class="field">
+                            <input class="form-control"  name="email" ng-model="model.phone" max="11" placeholder="Phone Number" type="email">
+                        </p>
+
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-10">
+                        <p class="field single-field">
+                            <textarea class="form-control" name="message" ng-model="model.comment" max="1000" required="" cols="40" rows="11" placeholder="Your Message...*"></textarea>
+                        </p>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-10">
+                        <p class="field submit">
+                            <button class="btn btn-style-two" ng-click="submit(contactForm)" type="submit">Submit</button>
+                        </p>
+                    </div>
+                    <div id="loading" ng-if="submitting">
+                        <img src="images/ajax-loader.png" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+@section scripts{
+
+    <script src="~/plugins/angular/angular.js"></script>
+    <script src="~/plugins/angular-sanitize/angular-sanitize.js"></script>
+    <script src="~/js/app.js"></script>
+}
+
+@section styles
+{
+    <link href="/css/form-validation.css" rel="stylesheet">
+    <style>
+    .contactpagform{
+    margin: 3rem 0 10rem 0;
+    }
+    .social{
+    padding-left:0;}
+        .social li{
+               display: inline-block;
+               }
+                .social li a{
+                       font-size:32px;
+                       }
+                       .facebook:hover{
+                                              color: #0a53be;
+                                              }
+                    .twitter:hover{
+                                           color: #0aa1eb;
+                                           }
+                   .googleplus:hover{
+                                          color: #aa0000;
+                                          }
+    </style>
+
+}

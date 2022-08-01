@@ -1,0 +1,72 @@
+﻿ @{
+    Layout = "oneColumn.cshtml";
+    var documentContainer =Model.DescendantOrSelfOfType("documentContainer");
+    IEnumerable<IPublishedContent> documents = Model.ChildrenOfType("documentContainer");
+    var documentTypes = Model.Root().FirstChild("regulations").Children();
+
+    var count = 0;
+    var pageSize = 20;
+    var page = 1;
+    int.TryParse(Context.Request.Query["page"], out page);
+    int.TryParse(Context.Request.Query["count"], out count);
+    var items = documents;
+    var totalPages = (int)Math.Ceiling((double)items.Count() / (double)pageSize);
+
+    
+    var type = Context.Request.Query["type"].ToString();
+    IEnumerable<IPublishedContent> query;
+    if (!type.IsNullOrWhiteSpace())
+    {
+        query = documents.OfTypes(type);// Model.FirstChild(type).Children;
+    }
+    else
+    {
+        query = documents;
+    }
+}
+
+    <section class="section row">
+
+        <div class="col-12 col-md-12 order-last order-md-first">
+
+            <div id="document-body" class=" body-text">
+                @Model.Value("bodyText")
+            </div>
+        </div>
+
+        @foreach (var item in documents)
+        {
+            var childCount = 0;
+
+            <div class="col-md-4 doc">
+                @if (item.Children.Any())
+                {
+                    <h5>
+                    <a href="@item.Url()"> @item.Name</a>
+                </h5>
+                <ul class="list">
+                    @foreach (var child in item.Children.OrderByDescending(x => x.CreateDate))
+                    {
+                        var isContainer = child.IsDocumentType("documentContainer");
+                        if (isContainer)
+                        {
+                            <li>
+                                <a href="@child.Url()">View All @child.Name</a>
+                            </li>
+                            continue;
+                        }
+                        if (childCount <= 5)
+                        {
+                            <li>
+                                <a href="@child.Url()"> @child.Name</a>
+                            </li>
+                        }
+                        childCount += 1;
+                    }
+                </ul>
+ }
+            </div>
+        }
+     
+    </section>
+ 

@@ -78,7 +78,7 @@ Last change:    00/00/00
 					$('body').toggleClass('mobile_menu_overlay_on');
 				});
 				if($('.mobile_menu li.dropdown ul').length){
-					$('.mobile_menu li.dropdown').append('<div class="dropdown-btn"><span class="fas fa-caret-right"></span></div>');
+					$('.mobile_menu li.dropdown').append('<div class="dropdown-btn"><span class="bx bx-caret-right"></span></div>');
 					$('.mobile_menu li.dropdown .dropdown-btn').on('click', function() {
 						$(this).prev('ul').slideToggle(500);
 					});
@@ -324,7 +324,7 @@ Last change:    00/00/00
 						arrow: false,
 						dots: true,
 						infinite: false,
-						slidesToShow: 3,
+						slidesToShow: 1,
 						slidesToScroll: 1,
 						responsive: [
 						{
@@ -337,21 +337,15 @@ Last change:    00/00/00
 							}
 						},
 						{
-							breakpoint: 800,
+							breakpoint: 600,
 							settings: {
 								slidesToShow: 2,
 								slidesToScroll: 1
 							}
 						},
+						 
 						{
-							breakpoint: 600,
-							settings: {
-								slidesToShow: 2,
-								slidesToScroll: 2
-							}
-						},
-						{
-							breakpoint: 500,
+							breakpoint: 480,
 							settings: {
 								slidesToShow: 1,
 								slidesToScroll: 1

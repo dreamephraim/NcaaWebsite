@@ -2011,7 +2011,7 @@ select:visited {
   z-index: 5;
   color: #fff;
   display: none;
-  font-size: 24px;
+  font-size: 37px;
   cursor: pointer;
   line-height: 38px;
   position: absolute;
@@ -9069,7 +9069,7 @@ select:visited {
 /*----------------------------------------------------*/
 .ft-footer-section {
   margin-top: -150px;
-  padding-top: 240px;
+  padding-top: 79px;
   background-color: #00044b;
 }
 
@@ -13400,8 +13400,7 @@ ul li {
 
 ***/
 .ft2-services-section-two {
-  position: relative;
-  padding: 0px 0px 100px;
+  position: relative; 
 }
 
 .ft2-services-section-two .service-down-arrow {
@@ -13538,7 +13537,8 @@ ul li {
   right: 60px;
   z-index: 2;
   text-align: center;
-  padding: 35px 30px 15px;
+  padding: 14px 7px;
+  opacity: .6;
   background-color: #ffffff;
   transition: all 500ms ease;
   -moz-transition: all 500ms ease;
@@ -13549,6 +13549,9 @@ ul li {
 
 .ft2-service-block-two .inner-box:hover .lower-content {
   bottom: 0px;
+}
+.ft2-service-block-two .inner-box .lower-content:hover{
+  opacity: 1;
 }
 
 .ft2-service-block-two .inner-box .lower-content .title {
@@ -13565,7 +13568,7 @@ ul li {
 
 .ft2-service-block-two .inner-box .lower-content h4 a {
   position: relative;
-  color: #010101;
+  color: #ea1e00;
   transition: all 300ms ease;
   -moz-transition: all 300ms ease;
   -webkit-transition: all 300ms ease;
@@ -17740,3 +17743,5 @@ ul li {
   }
 }
 /*---------------------------------------------------- */
+
+

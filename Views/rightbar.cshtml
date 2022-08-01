@@ -1,0 +1,43 @@
+﻿ @{
+    Layout = "Roothead.cshtml";
+}
+ @await Umbraco.RenderMacroAsync("Breadcrumbs")
+ 	@RenderSection("scripts", false)
+  		@RenderSection("styles", false)
+<div id="content"  class="container">
+    <div class="row">
+        <div class="col-md-9">
+            @RenderBody()
+        </div>
+        <div class="col-md-3">
+            <div class="tracksidebar">
+                <div class="widget widget_text">
+                    <h4 class="widget-title">Our Mission</h4>
+                    <div class="textwidget">
+                        @Model.Value("mission", fallback: Fallback.To(Fallback.Ancestors, Fallback.DefaultValue), defaultValue:
+           new HtmlString("To provide aviation safety and economic regulation in the most efficient, " +
+           "effective, quality and technology driven manner to the satisfaction and benefit of all stakeholders," +
+           " consistent with the highest international standards and the sustainable development of the industry and national economy."
+           ))
+                    </div>
+                </div>
+
+                <div class="widget widget_text">
+                    <h4 class="widget-title">Our Vision</h4>
+                    <div class="textwidget">
+                        @Model.Value("vision", fallback: Fallback.To(Fallback.Ancestors, Fallback.DefaultValue), defaultValue:
+           new HtmlString("To be one of the leading civil aviation authorities in the world"))
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+ @section styles{
+     <style>
+    #content {
+    margin-top: 32px;
+    margin-bottom:14rem;
+    }</style>
+    }

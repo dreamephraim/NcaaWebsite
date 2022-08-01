@@ -6,44 +6,12 @@ var services =	Umbraco.Content("fa760daf-35eb-4239-943e-6817d7d7c1f7")
 		.Where(x => x.IsVisible())
 		.OrderByDescending(x => x.CreateDate);
      
-    //
-    // var abujaA=Model.Value<string>("abujaAddress");
-	var regionalOffices = Umbraco.Content("7ce688f8-0678-4ffd-bd17-368c2ed306e6")
-		.Children("regionalOffice")
-		.Where(x => x.IsVisible() && !x.Name.Contains("Abuja"));
+
 
 
 }
 
 
-<section class="ft1-location-section">
-			<div class="auto-container">
-				<div class="inner-container" style="background-image:url(/images/background/pattern-4.png)">
-					<div class="title-box">
-						<h4>Our Locations</h4>
-					</div>
-					<div class="row clearfix">
-						 @foreach (var item in regionalOffices)
-						 {
-							 var name = item.Value("officeName");
-							 var address = item.Value("officeAddress");
-							 var email = item.Value("officeEmail");
-							 var phone = item.Value("officePhone");
-							 <div class="column col-lg-3 col-md-4 col-sm-12">
-								 <h6>@name</h6>
-								 <ul class="post-info">
-									 <li><span class="icon bx bx-buildings"></span> @address</li>
-									 <li><span class="icon bx bx-phone"> </span><a href="mailto:@email">@email</a></li>
-									 <li><span class="icon bx bx-envelope"> </span><a href="tel:@phone">@phone</a></li>
-								 </ul>
-							 </div>
-						 }
-						 
-						 
-					</div>
-				</div>
-			</div>
-		</section>
 
 <footer id="ft-footer" class="ft-footer-section">
 		<div class="container">
@@ -57,12 +25,13 @@ var services =	Umbraco.Content("fa760daf-35eb-4239-943e-6817d7d7c1f7")
  Nigerian Civil Aviation Authority is the regulatory body for aviation in Nigeria. It became autonomous with the passing into law of the Civil Aviation Act 2006 by the National Assembly and assent of the President of the Federal Republic of Nigeria. The Act not only empowers the Authority to regulate Aviation Safety without political interference, but also to carry out oversight functions of Airports,
                                 Airspace, Meteorological Services, etc as well as economic regulations of the industry.								</p>
 								
-								<p>
-									<i class="fal fa-map-marker-alt mr-3"></i>
-									@Model.Value("abujaAddress", fallback: Fallback.ToAncestors)<br/>
-									@Model.Value("abujaEmail", fallback: Fallback.ToAncestors)<br/>
-									@Model.Value("abujaPhone", fallback: Fallback.ToAncestors)
-								</p>
+								<p class="mb-0 pb-0">
+									<i class="bx bx-map mr-3"></i>
+									@Model.Value("abujaAddress", fallback: Fallback.ToAncestors)</p>
+								<p class="mb-0 pb-0"><i class="bx bx-envelope mr-3"></i>
+									@Model.Value("abujaEmail", fallback: Fallback.ToAncestors) </p>
+								<p class="mb-0 pb-0"><i class="bx bx-phone mr-3"></i>@Model.Value("abujaPhone", fallback: Fallback.ToAncestors)</p>
+								
 									
 								 	<div class="social">
 									<a href="https://faceebook.com/nigerianCaa"  class="text-white fs-3 " target="_blank">

@@ -1,0 +1,137 @@
+﻿@{
+    Layout = "OneColumn.cshtml";
+    var children = Model.Children.ToList();
+}
+
+@section styles{
+    <link href="~/Css/ssp.css" rel="stylesheet" />
+}
+ 
+   
+@Model.Value("welcomeMessage")
+
+<section class="m-pt-140 m-pb-70 about-area type-1 position-relative" style="border-bottom: 1px solid #ddd;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 xs-mb-20">
+                <h2 class="text-dark mb-0 semi-bold pb-5">
+                    THE CONCEPT
+                    <br>
+                    OF SAFETY
+                </h2>
+                <p class="mb-4">
+                    While the elimination of aircraft accidents and/or serious incidents remains the ultimate goal, it is
+                    recognized that the aviation system cannot be completely free of hazards and associated risks. Human activities or
+                    human-built systems cannot be guaranteed to be absolutely free from operational errors and their consequences.
+                    Therefore, safety is a dynamic characteristic of the aviation system, whereby safety risks must be continuously mitigated.
+                    It is important to note that the acceptability of safety performance is often influenced by domestic and international
+                    norms and culture. As long as safety risks are kept under an appropriate level of control, a system as open and dynamic
+                    as aviation can still be managed to maintain the appropriate balance between production and protection.
+
+                </p>
+
+            </div> <!-- col -->
+            <div class="col-lg-7 offset-lg-1 col-md-8">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="m-mb-60 features-wraper">
+                            <div class="features-circle mb-3 m-bg-3 text-active d-inline-flex align-items-center justify-content-center rounded-circle">
+                                <i class="bx bx-info-circle"></i>
+                            </div>
+                            <h4 class="m-text-2 mb-3 mt-2">
+                                ACCIDENT CAUSATION
+                            </h4>
+                            <p>
+                                The ―Swiss-Cheese‖ Model, developed by Professor James Reason, illustrates that accidents involve
+                                successive breaches of multiple system defences. These breaches can be triggered by a number of enabling factors
+                                such as equipment failures or operational errors.
+                            </p>
+                        </div>
+                    </div> <!-- col -->
+                    <div class="col-sm-6">
+                        <div class="m-mb-60 features-wraper">
+                            <div class="features-circle mb-3 m-bg-3 text-active
+                                 d-inline-flex align-items-center
+                                 justify-content-center rounded-circle">
+                                <i class="bx bx-group"></i>
+                            </div>
+                            <h4 class="m-text-2 mb-3 mt-2">PEOPLE, CONTEXT AND SAFETY</h4>
+                            <p>
+                                The aviation system includes product and service providers and State organizations. It is a complex
+                                system that requires an assessment of the human contribution to safety and an understanding of how human
+                                performance may be affected by its multiple and interrelated components.
+                            </p>
+                        </div>
+                    </div> <!-- col -->
+                    <div class="col-sm-6">
+                        <div class="m-mb-60 features-wraper">
+                            <div class="features-circle mb-3 m-bg-3 text-active
+                                 d-inline-flex align-items-center justify-content-center
+                                 rounded-circle">
+                               <i class='bx bx-calendar-exclamation'></i>
+                            </div>
+                            <h4 class="m-text-2 mb-3 mt-2"> ERRORS AND VIOLATIONS</h4>
+                            <p>
+                                Effective SMS implementation by the product or service provider as well as effective SMS oversight by the
+                                State are both dependent upon a clear, mutual understanding of errors and violations and the differentiation between the
+                                two. The difference between errors and violations lies in intent. While an error is unintentional, a violation is a deliberate
+                                act or omission to deviate from established procedures, protocols, norms or practices.
+                            </p>
+                        </div>
+                    </div> <!-- col -->
+                    <div class="col-sm-6">
+                        <div class="m-mb-60 features-wraper">
+                            <div class="features-circle mb-3 m-bg-3 text-active
+                                 d-inline-flex align-items-center justify-content-center
+                                 rounded-circle">
+                                <i class="bx bx-data"></i>
+                            </div>
+                            <h4 class="m-text-2 mb-3 mt-2">SAFETY DATA</h4>
+                            <p>
+                                Data-based decision making is one of the most important facets of any management system. The type of
+                                safety data to be collected may include accidents and incidents, events, non-conformance or deviations and hazard
+                                reports. The quality of the data that are used to enable effective decision making must be considered throughout SSP
+                                and SMS development and implementation.
+                            </p>
+                        </div>
+                    </div> <!-- col -->
+                </div>
+            </div> <!-- Banenr Section -->
+        </div> <!-- row -->
+    </div> <!-- container -->
+</section>
+@if (children.Any())
+{
+<section class="m-pb-70  position-relative doc-resource" style="border-bottom: 1px solid #ddd;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center text-dark">
+                <h2 class=" text-center">Resources</h2>
+            </div>
+            @foreach (var child in children)
+            {
+                <div class="col-md-4">
+                    <h6 class="title text-light-dark">@child.Name</h6>
+                    <ul class="list">
+                        @foreach (var grandChild in child.Children)
+                        {
+                            var showInSlider = grandChild.Value<bool>("isCurrent");
+                            var attachment = grandChild.Value<IPublishedContent>("file");
+                            if (!showInSlider) { continue; }
+                            var title = grandChild.Value("documentTitle");
+                            <li>
+                                <a href="@attachment.Url()" title="@title" class="ml-3 pl-3" target="_blank">
+                                    @title  
+                                </a>
+                            </li>
+                        }
+                        
+                        
+                    </ul>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+}
+

@@ -5,7 +5,7 @@
 		.OrderByDescending(x => x.CreateDate);
 }
 
-<section class="ft2-services-section-two" style="margin-top: 133px">
+<section class="ft2-services-section-two">
 		<div class="auto-container">
 			<div class="services-carousel owl-carousel owl-theme">
 				@foreach (var item in selection)
@@ -18,19 +18,19 @@
 					var title = item.Value("newsTitle");
 					var summary = item.Value("newsTitle");
 					var contentLink = item.Value<IPublishedContent>("newsLink");
-					var image = item.GetCropUrl("newsImage", "fullWidth");
+					var image = item.GetCropUrl("newsImage", "nHomeThumbnail");
 					var link = contentLink != null ? contentLink.Url() : item.Url();
-					<div class="ft2-service-block-two">
+					<div class="ft2-service-block-two shadow-lg">
 						<div class="inner-box">
 							<div class="gradient-layer"></div>
-							<div class="image">
-								<a href="@link">
-								<img src="@image" alt="@title"/></a>
+							<a href="@link"><div class="image">
+								
+								<img src="@image" alt="@title"/>
 								<div class="lower-content">
-									<div class="title">@title</div>
+									@* <div class="title">@title</div> *@
 									<h4><a href="@link">@summary</a></h4>
 								</div>
-							</div>
+							</div></a>
 						</div>
 					</div>
 					
@@ -39,3 +39,4 @@
 		</div>
 	</section>
 	
+ 

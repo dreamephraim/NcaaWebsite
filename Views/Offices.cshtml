@@ -1,0 +1,54 @@
+﻿@{
+    Layout = "oneColumn.cshtml";
+    var regionalOffices = Umbraco.Content("7ce688f8-0678-4ffd-bd17-368c2ed306e6")
+        .Children("regionalOffice")
+        .Where(x => x.IsVisible());
+}
+
+
+<section class="special_services bluebg secpadd">
+    <div class="">
+        <div class="row paddbtm40 mb-5">
+            <div class="col-md-4 col-sm-12">
+                <div class="fh-section-title clearfix  text-left version-light">
+                    <h2>Our Regional Offices</h2>
+                </div>
+            </div>
+            <div class="col-md-8 col-sm-12">
+                <div class="hdrgtpara lftredbrdr">
+                    <p>
+                        To ensure safety and efficiency in air transport navigation in Nigeria, the NCAA, therefore regulates the industry through 
+                        a series of a well coordinated regional offices across the country.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var item in regionalOffices)
+            {
+                var name = item.Value("officeName");
+                var address = item.Value("officeAddress");
+                var email = item.Value("officeEmail");
+                var phone = item.Value("officePhone");
+                
+                <div class="col-12 col-md-4 col-sm-12">
+                    
+                    <div class="ft-counterup-innerbox d-flex align-items-center position-relative m-3">
+                        <div class="ft-counterup-icon d-flex align-items-center justify-content-center">
+                            <i class="bx bx-buildings"></i>
+                        </div>
+                        <div class=" headline pera-content">
+                            <h5><span> <a href="@item.Url()" class="link">@name</a></span></h5>
+                            <p>@address</p>
+                                                       <p>
+                                                           <div>@email</div>
+                                                           <div>@phone</div>
+                                                       </p>
+                        </div>
+                    </div>
+                     </div>
+            }
+            
+        </div>
+    </div>
+</section>

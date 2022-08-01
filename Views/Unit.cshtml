@@ -1,0 +1,88 @@
+﻿@{
+    Layout = "oneColumn.cshtml";
+
+    var responsibilities = Model.Value<IEnumerable<string>>("responsibility");
+    var officials = Model.Children().OfTypes("keyOfficial");
+
+    var units = Model.Children().OfTypes("unit");
+}
+
+
+<div class="row">
+    <div class="col-md-9">
+        @Model.Value("bodyText")
+        <div class="responsibilty">
+
+            <ol>
+                @foreach (var r in responsibilities)
+                {
+                    <li>@r</li>
+                }
+
+            </ol>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="tracksidebar">
+            @if (officials.Any())
+            {<div class="widget widget_text">
+                 <h4 class="widget-title">Key Officials</h4>
+                 <ul>
+                     @foreach (var item in officials.OrderBy(x=>x.SortOrder))
+                     {
+                         var name = item.Value("fullName");
+                         var desg = item.Value("designation");
+                         var photo = item.GetCropUrl("photo","homeThumbnail");
+                         <li>
+                             <div class="team-member ">
+                                 @if (!string.IsNullOrWhiteSpace(photo))
+                                 {
+                                 <div class="team-header">
+                                     <img src="@photo" alt="@name image" />
+                                 </div>
+                                 }
+                                 
+                                 <div class="team-info">
+                                     <h4 class="name" style="margin-bottom: 0">
+                                         <a href="@item.Url()">@name</a>
+                                     </h4><span class="job">@desg</span>
+                                 </div>
+                             </div>
+                             @*<a href="@item.Url">@name</a>
+                             <div>@desg</div>*@
+                         </li>
+                     }
+
+                 </ul>
+             </div>
+            }
+
+            @if (units.Any())
+            {<div class="widget widget_text">
+                    <h4 class="widget-title">Departments/Units</h4>
+                    <ul>
+                        @foreach (var item in units)
+                        {
+                            <li>
+                                <a href="@item.Url()">@item.Name</a>
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+            }
+           
+        </div>
+    </div>
+</div>
+
+@section styles
+{
+    <style>
+        .responsibilty li {
+            display: inline;
+            margin: 0 5px;
+        }
+    </style>
+}

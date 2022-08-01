@@ -1,0 +1,68 @@
+﻿@{
+    Layout = "oneColumn.cshtml";
+    var services = Model.Value<IEnumerable<IPublishedContent>>("services");
+    var director = Model;
+    var directorImage = Model.Value ("photo");
+    var directorName = Model.Value("fullName");
+    var designation = Model.Value("designation");
+    var email = Model.Value("officialEmail");
+    var fb = Model.Value("facebook");
+    var tw = Model.Value("twitter");
+
+    var links = Model.Children().OfTypes("directorateTextPage");
+    var siblings = Model.Ancestor().Children(x => x.Id != Model.Id);
+    var units = Model.Children().OfTypes("unit");
+}
+<section class="section secpadd">
+    <div class="row single-project ">
+        <div class="col-md-9">
+            <h1 class="single-project-title">
+                @directorName
+            <small>@designation</small>
+        </h1>
+        @Model.Value("bodyText")
+       
+    </div>
+
+    <div class="col-md-3">
+        <div class="tracksidebar">
+            <div class="widget widget_text">
+                <div class="team-member ">
+                    @if (directorImage!=null)
+                    {
+                    <div class="team-header">
+                        <img src="@directorImage" class="" alt="@directorName image" />
+                    </div>
+                    }
+                    
+                    <div class="team-info">
+                        <h4 class="name">
+                            <a href="@director.Url()">@directorName</a>
+                        </h4>
+                        <span class="job">@designation</span>
+                        <span class="job"><a href="mailto:@email">@email</a></span>
+                    </div>
+                </div>
+            </div>
+
+            @if (siblings.Any())
+            {
+                <div class="widget widget_text">
+                    <h4 class="widget-title">Others</h4>
+                    <ul>
+                        @foreach (var item in siblings)
+                        {
+                            var name = item.Value("fullName");
+                            <li>
+                                <a href="@item.Url()">@name</a>
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+</section>

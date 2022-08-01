@@ -1,27 +1,36 @@
 ﻿@{
     Layout = "roothead.cshtml";
 }
- 
+ 		@RenderSection("scripts", false)
+ 		@RenderSection("styles", false)
+
+
  @await Umbraco.RenderMacroAsync("Breadcrumbs")
 
 
 
-<div id="content " class="container mb-5"  >
+<div id="content" class="container"  >
     @RenderBody()
 </div>
 @section styles{
     <style>
     #content {
-    margin-top: 32px
+    margin-top: 32px;
+    margin-bottom:14rem;
     }
     .page-header{
     margin-bottom:2rem;
+    margin-top:2rem;
     }
     .header-title{
     padding: 40px 0 20px 0;
     }
         .page-title{
-        color: #fff;
+            color: #fff;
+            font-size: 56px;
+        }
+        .widget ul{
+        padding-left: 0;
         }
     </style>
 }

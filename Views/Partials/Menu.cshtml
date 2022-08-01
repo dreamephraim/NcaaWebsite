@@ -20,7 +20,7 @@
 										if (hasChildren)
 										{
 											<li class="dropdown">
-												<a href="%21.html#">@item.Name</a>
+												<a href="@item.Url()">@item.Name</a>
 												<ul class="dropdown-menu clearfix">
 													@foreach (var subpage in item.Children()
                                                               .Where(x => x.Value<bool>("umbracoNaviHide")))
@@ -40,7 +40,7 @@
 								</ul>
 							</nav>
 							<div class="ft-header-cta-btn">
-								<a class="d-flex justify-content-center align-items-center" href="contact.html">Report Incident</a>
+								<a class="d-flex justify-content-center align-items-center" href="/incident-report">Report Incident</a>
 							</div>
 						</div>
 					

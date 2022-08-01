@@ -1,0 +1,111 @@
+﻿ @{
+    Layout = "oneColumn.cshtml";
+    var documentNo = Model.Value<string>("documentNo");
+    var title = Model.Value<string>("documentTitle");
+    var date = Model.Value<DateTime>("documentDate") != DateTime.MinValue ?
+        Model.Value<DateTime>("documentDate") : Model.CreateDate;
+    var effDate = Model.Value<DateTime>("effectiveDate") != DateTime.MinValue ?
+        Model.Value<DateTime>("effectiveDate") : Model.CreateDate;
+    var description = Model.Value<string>("documentDescription");
+    var isCurrent = Model.Value<bool>("isCurrent");
+    var attachment = Model.Value<IPublishedContent>("file");
+    var docType = Model.ContentType;
+
+    var siblings = Model.Siblings().Where(x => x.IsVisible()).OrderByDescending(x => x.CreateDate);
+}
+
+<div class="row mt-5 mb-5">
+
+    <div id="primary" class="content-area col-md-12 col-sm-12 col-xs-12">
+        <div class="site-main">
+
+
+            <div class="single-project post-1820 project type-project status-publish has-post-thumbnail hentry project_category-cargo project_category-shipment ">
+                <div class="row">
+
+                    @* <div class="col-md-12 col-sm-12 col-xs-12"> *@
+                    @*     <h2 class="single-project-title">@title</h2> *@
+                    @* </div> *@
+
+                    <div class="entry-content col-md-9 col-sm-12 col-xs-12">
+                        <p>@description</p>
+
+                    </div>
+
+                    <div class="metas col-md-3 col-sm-12 col-xs-12">
+                        <div class="meta cat">
+                            <h4><span>Category: </span>
+                            <a href="@Model.Parent.Url()?type=@docType.Alias" class="cat-project">@docType.Alias</a>
+                      </h4>  </div>
+
+                        <div class="meta cat">
+                            <h4><span>Number: </span> @documentNo</h4>
+                           
+                        </div>
+
+                        <div class="meta date">
+                            <h4><span>Issue Date: </span>
+                            @date.ToString("dd/MM/yyyy")</h4>
+                        </div> 
+                        <div class="meta date">
+                            <h4><span>Effective Date: </span>
+                            @effDate.ToString("dd/MM/yyyy")</h4>
+                        </div><div class="meta ">
+                            <h4><span>Is Current: </span>
+                            @(isCurrent ? "Yes":  "No")</h4>
+                        </div>
+
+                        <div class="meta link">
+                            <h4><span>Download: </span>
+                            <a href="@attachment.Url()" target="_blank"><i class="bx bx-download"></i></a></h4>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+@if (siblings.Any())
+{<div class="service-list row">
+
+        <div class="single-project  col-md-12 col-sm-12 col-xs-12 ">
+            <h2 class="single-project-title">Related Items</h2>
+        </div>
+       
+
+        @foreach (var item in siblings.Take(10))
+        {
+            var sTitle = item.Value<string>("documentTitle");
+           
+
+            <div class="item-service  col-12 col-sm-4 col-md-3">
+                <div class="service-content" style="margin-bottom: 2rem">
+                    <div class="entry-thumbnail">
+                        <h5> <a class="link" href="@item.Url()">@item.Name</a></h5>
+                        <small>
+                            Published: @item.CreateDate.ToLongDateString()
+                        </small>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+ }
+
+@section styles
+{
+    <style>
+        .meta h4{
+        font-size: 20px;
+        margin: .5rem 0;
+        }
+        .meta h4 span{
+        font-weight: normal;
+        }
+    </style>
+}

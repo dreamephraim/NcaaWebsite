@@ -24,8 +24,10 @@
 						</div>
 					</div>
 					<div class="col-lg-9">
+					 
+						    
 						<div class="ft-service-slider-area">
-							<div class="ft-service-slider-wrapper">
+							<div class="ft-service-slider-wrapper row">
 								@{
 									var count = 0;
 								}
@@ -35,8 +37,10 @@
 									var title = item.Value("serviceName");
 									var summary = item.Value("serviceSummary");
 									var serviceImage = item.GetCropUrl("serviceImage", "homeThumbnail");
-
-									<div class="ft-item-innerbox wow fadeInLeft" data-wow-delay="200ms" data-wow-duration="1500ms">
+									 
+									                            
+									<div class="ft-item-innerbox   wow fadeInLeft" data-wow-delay="200ms"
+									     data-wow-duration="1500ms">
 										<div class="ft-service-slider-item">
 											<div class="ft-service-inner-img">
 												<img src="@serviceImage" alt="@title">
@@ -50,11 +54,11 @@
 												</div>
 											</div>
 										</div>
-									</div>
+									</div> 
 								}
 
-								 
-								 
+
+
 							</div>
 						</div>
 					</div>

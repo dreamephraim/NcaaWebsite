@@ -1,0 +1,49 @@
+﻿ @{
+	Layout = "rightbar.cshtml";
+		var selection = Umbraco.Content("ff1f357e-4aad-434a-8a92-90e6748f7388")
+    .Children()
+    .Where(x => x.IsVisible());
+}
+
+<div class="servwesec secpadd">
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <div class="uthead lftredbrdr">
+                    <p>Diectorate Services</p>
+                </div>
+                <p c>
+
+                    Nigerian Civil Aviation Authority (NCAA) NCAA was established by decree 49 of 1999, with among others, the statutory responsibilities of ensuring regulating, monitoring and promotion of the safety, security, economic and reliability of air navigation oversight in line with International Civil Aviation organisation 
+                    (ICAO) standard and recommended practices (SARPs). The Authority effectively commenced operations on 1st January, 2000.
+                    The NCAA carry out its core functions as stated below through its Directorates.
+                </p>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <ul>
+                    <li>Regulation of safety of aircraft operations, air navigation and aerodrome operations</li>
+                    <li>Monitoring of aircraft operating environment for safety and security</li>
+                    <li>Regulating of methods of entry and conduct of air transport business</li>
+                    <li>Advising the Ministry on policy formulation on aviation related matters</li>
+                    <li>Balancing the economic interest of operators, users of aviation services as well as the general public and the nation as a whole</li>
+                    <li>Setting of Aviation Training Standards and approval of Training Institutions</li>
+                    <li>Facilitating take off and operation of ETicketing and Billing Settlement Plan (BSP)</li>
+                </ul>
+            </div>
+
+            <div class="col-12">
+                <ul>
+                    @foreach (var item in selection)
+                    {
+                        var name = item.Value("directorateName");
+                        var code = item.Value("directorateCode");
+                        <li>
+                            <a href="@item.Url()">@name  (@code)</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+</div>
+ 
+
+

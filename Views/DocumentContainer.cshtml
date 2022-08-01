@@ -1,0 +1,144 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@using System
+@using System.Linq
+@using System.Threading
+@using Umbraco.Examine
+@using Examine
+@using ContentModels = Umbraco.Web.PublishedModels;
+@{
+    Layout = "oneColumn.cshtml";
+    var documentContainers = Model.ChildrenOfType("documentContainer").Where(x => x.IsVisible());
+    var children = Model.Children.Where(x => x.IsVisible()).OrderByDescending(x => x.CreateDate);
+    var searchTerm = Request["q"];
+    ISearchResults selection = null;
+    if (!string.IsNullOrEmpty(searchTerm))
+    {
+        var sLower = searchTerm.ToLower();
+        if (ExamineManager.Instance.TryGetIndex("ExternalIndex", out var index))
+        {
+            var searcher = index.GetSearcher();
+            selection = searcher.CreateQuery("content")
+                .NodeTypeAlias("advisoryCircular").Or()
+                .NodeTypeAlias("regulation").And()
+                .Field("nodeName", searchTerm).Or()
+                .Field("documentTitle", searchTerm)
+                    .Execute();
+        }
+    }
+    var count = 1;
+}
+
+    <div class="service-list row">
+
+        @*<form class="search-form col-md-12" action="@Model.Url">
+            <div class="row">
+                <div class="col-md-8">
+                    <input type="search" class="search-field form-control" placeholder="Filter by name..." name="q" value="@searchTerm">
+                </div>
+                <div class="col-md-2">
+                    <input type="submit" class="search-submit btn btn-outline-danger" value="Filter">
+                </div>
+            </div>
+        </form>*@
+
+
+        @foreach (var item in children.OrderByDescending(x => x.CreateDate))
+        {
+                                   
+ var isContainer = item.IsDocumentType("documentContainer");
+            if (isContainer)
+            {
+                if (item.Children.Any())
+                {
+                    foreach (var child in item.Children.OrderByDescending(x => x.CreateDate))
+                    {
+                        @RenderChild(child, count)
+                        count += 1;
+                    }
+                }
+            }
+            var title = item.Value<string>("documentTitle");
+            if (!string.IsNullOrEmpty(title))
+            {
+                @RenderChild(item, count)
+                count += 1;
+
+            }
+
+        }
+
+
+
+    </div>
+
+@helper RenderChild(IPublishedContent item, int count)
+{
+
+    var title = item.Value("documentTitle");
+    var desc = item.Value<string>("documentDescription");
+    var no = item.Value<string>("documentNo");
+    var date = item.Value<DateTime>
+        ("effectiveDate") != DateTime.MinValue ?
+        item.Value<DateTime>
+            ("effectiveDate") : item.CreateDate;
+
+<div class="item-service col-12 col-sm-4 col-md-4">
+    <h5>
+        <b>@count</b>. <a href="@item.Url"> @title
+        </a>
+       
+    </h5>
+    <div class="service-content">
+        <small class="no"> <b>Document No.</b>@no</small>
+        <p>
+            @Html.Truncate(desc, 200)
+            <br />
+            <small><b>Effective Date:</b> @date.ToLongDateString()</small>
+        </p>
+
+    </div>
+</div>
+
+}
+
+@section styles
+{
+    <style>
+        .item-service {
+            margin-bottom: 1rem
+        }
+
+        .search-form {
+            margin-bottom: 2rem;
+        }
+
+        .entry-thumbnail h5 {
+            text-transform: uppercase;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .service-content {
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        a.read-more {
+            color: #ff0000;
+        }
+
+        .no {
+            background: #0d133a;
+            padding: 4px;
+            color:#fff
+        }
+
+        p.desc {
+            text-overflow: ellipsis;
+            max-height: 8rem;
+            overflow: hidden;
+        }
+    </style>
+}

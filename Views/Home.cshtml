@@ -28,3 +28,61 @@ Layout="Roothead.cshtml";
 @* News Section *@
 @Html.Partial("home/News")
 @* End News Section *@
+
+
+
+
+@Html.Partial("home/TopFooter")
+
+
+@section styles
+{
+	<style>
+    .ft2-services-section-two{
+        margin-top: 4.1rem;
+    }
+    .ft2-services-section-two .auto-container{padding: 0}
+    .lower-content{
+    			opacity: .8;
+    		}
+    		.ft2-service-block-two .inner-box .lower-content{
+    		left: 0; right: 0;
+    		}
+    		.ft-service-slider-wrapper .slick-dots{
+    		margin-top:0;}
+        .ft-footer-section{
+        padding-top: 240px;
+        }
+        .ft-about-exp-area .ft-about-exp-text{
+        left: 0; top: 20px;
+        }
+        .ft1-location-section .column:before{
+        width: 0;
+        }
+        
+        @@media(min-width: 768px) {
+        .ft1-location-section .column:before{
+                        width: 2px;
+                        }
+          ft2-services-section-two{
+                  margin-top: 4.1rem;
+              }
+              .ft2-services-section-two .auto-container{padding: 0;}
+              .ft2-service-block-two .inner-box .lower-content{
+                  		left: 60px; right: 60px;
+                  		}
+          .ft-about-exp-area .ft-about-exp-text{
+          position: absolute !important;
+          left: 60px; top: 50px;
+         }
+        }
+        
+        @@media screen and (max-width: 1024px){
+        
+        .ft-service-slider-item {
+            margin: 0 auto;
+            max-width: 100%;
+        }
+        }
+    </style>
+}

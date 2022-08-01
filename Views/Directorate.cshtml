@@ -1,0 +1,116 @@
+﻿ @{
+    Layout = "oneColumn.cshtml";
+
+    var services = Model.Value<IEnumerable<IPublishedContent>>("services");
+    var director = Model.Value<IPublishedContent>("director");
+    var directorImage = director.Value("profilePhoto");
+    var directorName = director.Value("fullName");
+    var designation = director.Value("designation");
+
+    var links = Model.Children().OfTypes("directorateTextPage");
+    var siblings = Model.Ancestor().Children(x => x.Id != Model.Id);
+    var units = Model.Children().OfTypes("unit");
+}
+<div class="row">
+    <div class="col-md-9">
+        @Model.Value("bodyText")
+
+    </div>
+
+    <div class="col-md-3">
+        <div class="tracksidebar">
+            <div class="widget widget_text">
+                <h4 class="widget-title">Director</h4>
+                <div class="team-member ">
+                    <div class="team-header">
+                        <img src="@directorImage" class="" alt="@directorName image" />
+                    </div>
+                    <div class="team-info">
+                        <h4 class="name">
+                            <a href="@director.Url()">@directorName</a>
+                        </h4><span class="job">@designation</span>
+                    </div>
+                </div>
+            </div>
+            @if (links.Any())
+            {<div class="widget widget_text">
+                    <h4 class="widget-title">Links</h4>
+                    <ul class="list">
+                        @foreach (var item in links)
+                        {
+                            <li>
+                                <a href="@item.Url()">@item.Name</a>
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+            }
+            @if (units.Any())
+            {<div class="widget widget_text">
+                 <h4 class="widget-title">Departments/Units</h4>
+                 <ul class="list">
+                     @foreach (var item in units)
+                     {
+                         <li>
+                             <a href="@item.Url()">@item.Name</a>
+                         </li>
+                     }
+
+                 </ul>
+             </div>
+            }
+            @if (siblings != null)
+            {
+                <div class="widget widget_text">
+                    <h4 class="widget-title">Other Directorates</h4>
+                    <ul class="list">
+                        @foreach (var item in siblings)
+                        {
+                            var name = item.Value("directorateName");
+                            var code = item.Value("directorateCode");
+                            <li>
+                                <a href="@item.Url()">@name  (@code)</a>
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+
+@if (services != null && services.Any())
+   
+{<div class="fh-service  style-bordered">
+        <div class="service-list">
+            <div class="widget widget_text">
+                <h4 class="widget-title">Do You Want To Do Business With Us?</h4>
+                <div class="row">
+                    @foreach (var item in services)
+                    {
+                        var title = item.Value("serviceName");
+                        var summary = item.Value("serviceSummary");
+
+
+                        <div class="item-service  col-12 col-sm-6 col-md-4">
+                            <div class="service-content">
+
+                                <div class="summary">
+                                    <h3 class="entry-title"><a href="@item.Url()">@title</a></h3>
+                                    <p>@summary</p>
+                                    <a href="@item.Url()" class="read-more">Read More...</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+}
